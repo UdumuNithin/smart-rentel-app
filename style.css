@@ -1,13 +1,142 @@
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+/* General Reset and Base Styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #e9d5ff, #dbeafe);
+  min-height: 100vh;
+  padding: 20px;
 }
-.font-semibold {
+
+/* Container Card */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+/* Header */
+.container h1 {
+  font-size: 2.5rem;
+  color: #6b21a8;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.container p {
+  text-align: center;
+  color: #4b5563;
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+
+/* Search Bar Section */
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.search-bar input[type="text"] {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.search-bar button {
+  background-color: #7e22ce;
+  color: white;
   font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-.text-gray-800 {
+
+.search-bar button:hover {
+  background-color: #6b21a8;
+}
+
+/* Message Styling */
+.message {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+}
+
+.message.success {
+  color: #16a34a;
+}
+
+.message.error {
+  color: #dc2626;
+}
+
+/* Section Headings */
+.section-heading {
+  font-size: 2rem;
   color: #1f2937;
+  text-align: center;
+  margin: 48px 0 24px;
 }
-.mb-2 {
-  margin-bottom: 0.5rem;
+
+/* Grid Layouts */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Info Cards */
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  color: #7e22ce;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #4b5563;
+}
+
+/* Gray Highlight Cards */
+.card.gray {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Footer */
+.footer {
+  margin-top: 48px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
 }

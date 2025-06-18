@@ -1,44 +1,106 @@
-import React, { useState } from 'react';
+// Dummy data: sample trains
+const trains = [
+  { number: "12627", name: "Karnataka Express", from: "Bangalore", to: "Delhi" },
+  { number: "12001", name: "Shatabdi Express", from: "Chennai", to: "Mysore" },
+  { number: "12951", name: "Rajdhani Express", from: "Mumbai", to: "Delhi" },
+  { number: "12245", name: "Duronto Express", from: "Howrah", to: "Secunderabad" }
+];
 
-const App = () => {
-  const [locationInput, setLocationInput] = useState('');
-  const [locationData, setLocationData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
+// Dummy classes
+const classes = ["SL", "3A", "2A", "1A"];
 
-  const mockData = {
-    Hyderabad: { /* all data */ },
-    Bangalore: { /* all data */ },
-    Mumbai: { /* all data */ },
-    Delhi: { /* all data */ },
+// Utility: generate random seat number (between 0 and 100)
+function getRandomSeats() {
+  return Math.floor(Math.random() * 100);
+}
+
+// Utility: generate a random segment (from-to)
+function getRandomRouteSegment(from, to) {
+  const stations = [from, "Nagpur", "Bhopal", "Pune", "Hyderabad", "Kanpur", to];
+  const start = Math.floor(Math.random() * (stations.length - 2));
+  return {
+    from: stations[start],
+    to: stations[start + 1]
   };
+}
 
-  const fetchLocationDetails = async (location) => {
-    setIsLoading(true);
-    setMessage('');
-    setLocationData(null);
+// Main function to display results
+function displayResults(train) {
+  const results = document.getElementById("results");
+  results.innerHTML = "";
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+  const heading = document.createElement("h2");
+  heading.textContent = `Availability for Train: ${train.name} (${train.number})`;
+  heading.className = "section-heading";
+  results.appendChild(heading);
 
-    const formattedLocation = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
+  const grid = document.createElement("div");
+  grid.className = "grid grid-4";
 
-    if (mockData[formattedLocation]) {
-      setLocationData(mockData[formattedLocation]);
-      setMessage(`Information for ${formattedLocation}:`);
-    } else {
-      setMessage("Sorry, no detailed information found. Try Hyderabad, Bangalore, Mumbai, or Delhi.");
-    }
+  classes.forEach(trainClass => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-    setIsLoading(false);
-  };
+    const segment = getRandomRouteSegment(train.from, train.to);
+    const seats = getRandomSeats();
 
-  const handleSearch = () => {
-    if (locationInput.trim()) {
-      fetchLocationDetails(locationInput.trim());
-    } else {
-      setMessage("Please enter a location to search.");
-    }
-  };
+    card.innerHTML = `
+      <h3>${trainClass}</h3>
+      <p><strong>Route:</strong> ${segment.from} → ${segment.to}</p>
+      <p><strong>Seats Available:</strong> ${seats}</p>
+    `;
 
-  // JSX render...
-};
+    grid.appendChild(card);
+  });
+
+  results.appendChild(grid);
+}
+
+// Event: Main Search
+document.getElementById("searchBtn").addEventListener("click", () => {
+  const query = document.getElementById("trainSearch").value.toLowerCase();
+  const results = document.getElementById("results");
+
+  const foundTrain = trains.find(t =>
+    t.name.toLowerCase().includes(query) || t.number.includes(query)
+  );
+
+  if (foundTrain) {
+    displayResults(foundTrain);
+  } else {
+    results.innerHTML = `<p class="message error">Train not found. Try again.</p>`;
+  }
+});
+
+// Event: Direct Train + Class Search
+document.getElementById("directSearchBtn").addEventListener("click", () => {
+  const number = document.getElementById("directTrainNo").value.trim();
+  const trainClass = document.getElementById("directClass").value.trim().toUpperCase();
+  const results = document.getElementById("results");
+
+  const foundTrain = trains.find(t => t.number === number);
+
+  if (foundTrain && classes.includes(trainClass)) {
+    const heading = document.createElement("h2");
+    heading.className = "section-heading";
+    heading.textContent = `Availability for ${trainClass} in ${foundTrain.name} (${number})`;
+
+    const segment = getRandomRouteSegment(foundTrain.from, foundTrain.to);
+    const seats = getRandomSeats();
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <h3>${trainClass}</h3>
+      <p><strong>Route:</strong> ${segment.from} → ${segment.to}</p>
+      <p><strong>Seats Available:</strong> ${seats}</p>
+    `;
+
+    results.innerHTML = "";
+    results.appendChild(heading);
+    results.appendChild(card);
+  } else {
+    results.innerHTML = `<p class="message error">Invalid train number or class.</p>`;
+  }
+});
