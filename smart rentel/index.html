@@ -250,8 +250,15 @@
 
                 if (mockData[formattedLocation]) {
                     displayLocationDetails(mockData[formattedLocation]);
-                    messageDisplay.textContent = Information for ${formattedLocation}:;
-                    messageDisplay.classList.remove('text-red-600');
+                    // Assume formattedLocation is already defined above this line
+const messageDisplay = document.getElementById("messageDisplay");
+
+if (messageDisplay && formattedLocation) {
+  messageDisplay.textContent = `Information for ${formattedLocation}`;
+  messageDisplay.classList.remove('text-red-600'); // Removes error color
+  messageDisplay.classList.add('text-green-600');  // Optional: Adds success color
+}
+
                     messageDisplay.classList.add('text-green-600');
                 } else {
                     messageDisplay.textContent = "Sorry, no detailed information found for this location. Try Hyderabad, Bangalore, Mumbai, or Delhi.";
