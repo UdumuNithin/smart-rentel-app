@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Rental Finder</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Basic styling for the info cards for consistency, though Tailwind handles most */
+        .info-card {
+            background-color: #f8fafc; /* light blue-gray */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0; /* light gray border */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 p-4 sm:p-8">
+
+    <!-- Main container -->
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-10 border border-gray-200">
+        <h1 class="text-4xl font-bold text-center text-purple-800 mb-6">
+            <!-- Font Awesome for home icon (optional, can be removed if not needed) -->
+            <i class="fas fa-home mr-2"></i>Smart Rental Finder
+        </h1>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            Find your ideal rental home with detailed insights into safety, living costs, and local amenities.
+        </p>
+
+        <!-- Location search input -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+            <input
+                type="text"
+                id="locationInput"
+                class="flex-grow w-full sm:w-auto p-4 border border-purple-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg shadow-sm"
+                placeholder="Enter location (e.g., Hyderabad, Bangalore)"
+            />
+            <button
+                id="searchButton"
+                class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                Search Location
+            </button>
+        </div>
+
+        <!-- Message display area -->
+        <p id="messageDisplay" class="text-center text-lg mb-8"></p>
+
+        <!-- Display fetched location data -->
+        <div id="locationDetailsContainer">
+            <!-- Content will be injected here by JavaScript -->
+        </div>
+
+        <!-- Four different options section -->
+        <h2 class="text-3xl font-bold text-center text-gray-800 mt-12 mb-8">
+            Explore Key Aspects of Your New Neighborhood
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Option 1: Neighborhood Safety -->
+            <div class="p-6 bg-blue-50 rounded-xl shadow-md border border-blue-200 text-center transform hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
+                <div class="text-5xl mb-4">🛡</div>
+                <h3 class="text-xl font-semibold text-blue-800 mb-2">Neighborhood Safety</h3>
+                <p class="text-gray-700">Detailed crime statistics & safety ratings.</p>
+            </div>
+
+            <!-- Option 2: Cost of Living Analysis -->
+            <div class="p-6 bg-green-50 rounded-xl shadow-md border border-green-200 text-center transform hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
+                <div class="text-5xl mb-4">💰</div>
+                <h3 class="text-xl font-semibold text-green-800 mb-2">Cost of Living Analysis</h3>
+                <p class="text-gray-700">Breakdown of expenses, utilities, and more.</p>
+            </div>
+
+            <!-- Option 3: Local Facilities & Amenities -->
+            <div class="p-6 bg-yellow-50 rounded-xl shadow-md border border-yellow-200 text-center transform hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
+                <div class="text-5xl mb-4">🛍</div>
+                <h3 class="text-xl font-semibold text-yellow-800 mb-2">Local Facilities & Amenities</h3>
+                <p class="text-gray-700">Proximity to hospitals, schools, and shops.</p>
+            </div>
+
+            <!-- Option 4: Transport & Connectivity -->
+            <div class="p-6 bg-red-50 rounded-xl shadow-md border border-red-200 text-center transform hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
+                <div class="text-5xl mb-4">🚆</div>
+                <h3 class="text-xl font-semibold text-red-800 mb-2">Transport & Connectivity</h3>
+                <p class="text-gray-700">Public transport, network availability & traffic.</p>
+            </div>
+        </div>
+
+        <!-- Basic Information Section - always visible -->
+        <h2 class="text-3xl font-bold text-center text-gray-800 mt-12 mb-8">
+            Quick Insights
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 bg-gray-50 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">About Our Data</h3>
+                <p class="text-gray-700">
+                    Our rental finder aims to provide comprehensive data points to help you make informed decisions about your next home. We gather information from various publicly available sources and simulate real-world scenarios to give you a clearer picture of different locations.
+                </p>
+            </div>
+            <div class="p-6 bg-gray-50 rounded-xl shadow-md border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Why Choose Us?</h3>
+                <p class="text-gray-700">
+                    Beyond just rental listings, we focus on the holistic living experience. Understanding factors like safety, connectivity, and local services is crucial for finding a place that truly fits your needs and lifestyle.
+                </p>
+            </div>
+        </div>
+
+        <!-- Placeholder for future features -->
+        <div class="mt-12 text-center text-gray-500 text-sm">
+            More features coming soon, including real-time listings and personalized recommendations!
+        </div>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const locationInput = document.getElementById('locationInput');
+        const searchButton = document.getElementById('searchButton');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const locationDetailsContainer = document.getElementById('locationDetailsContainer');
+
+        // Mock data for demonstration purposes
+        // In a real application, this would be fetched from various APIs
+        const mockData = {
+            "Hyderabad": {
+                crimeRatio: "Low (25/100,000 residents)",
+                rapeRatio: "Very Low (3/100,000 residents)",
+                networkAvailability: "Excellent (5G, Fiber Optic)",
+                livingCost: "Moderate (Avg. $600-$1000/month for 1BHK)",
+                facilities: ["Hospitals: Apollo, Care Hospitals (within 5km)", "Schools: Chirec International, Oakridge (within 7km)", "Shopping Malls: Inorbit, Forum Sujana (within 3km)", "Parks: KBR Park (within 4km)"],
+                transportation: ["Metro: JNTU, Hitech City Stations (2km)", "Buses: Extensive city bus network", "Cabs: Ola, Uber readily available", "Traffic: High during peak hours"],
+                governmentServices: ["Police Station: Local station (1km)", "Post Office: Main Post Office (2km)", "Municipal Office: GHMC Ward Office (3km)", "Garbage Collection: Daily"],
+                generalServices: ["Local Markets: Weekly markets, Supermarkets (D Mart, Ratnadeep)", "Dry Cleaners: Several options", "Repair Shops: Easily accessible", "Community Centers: Nearby community halls"]
+            },
+            "Bangalore": {
+                crimeRatio: "Moderate (45/100,000 residents)",
+                rapeRatio: "Low (7/100,000 residents)",
+                networkAvailability: "Good (4G, Fiber Optic)",
+                livingCost: "High (Avg. $800-$1500/month for 1BHK)",
+                facilities: ["Hospitals: Manipal Hospital, Fortis (within 6km)", "Schools: NPS, DPS (within 8km)", "Shopping Malls: Orion Mall, Phoenix Marketcity (within 5km)", "Parks: Cubbon Park (within 7km)"],
+                transportation: ["Metro: Green, Purple Lines (within 3km)", "Buses: BMTC network", "Cabs: Ola, Uber available", "Traffic: Very high during peak hours"],
+                governmentServices: ["Police Station: Local station (1.5km)", "Post Office: GPO (4km)", "Municipal Office: BBMP Office (5km)", "Garbage Collection: Daily"],
+                generalServices: ["Local Markets: Numerous street markets, Supermarkets (Big Bazaar, Reliance Smart)", "Dry Cleaners: Abundant", "Repair Shops: Common", "Community Centers: Various associations"]
+            },
+            "Mumbai": {
+                crimeRatio: "Low (30/100,000 residents)",
+                rapeRatio: "Very Low (4/100,000 residents)",
+                networkAvailability: "Excellent (4G, Fiber Optic)",
+                livingCost: "Very High (Avg. $1000-$2000/month for 1BHK)",
+                facilities: ["Hospitals: Lilavati, Kokilaben Dhirubhai Ambani (within 5km)", "Schools: Dhirubhai Ambani Int., Jamnabai Narsee (within 7km)", "Shopping Malls: Phoenix Mills, High Street Phoenix (within 3km)", "Parks: Hanging Gardens (within 6km)"],
+                transportation: ["Local Trains: Extensive network", "Buses: BEST buses", "Cabs: Ola, Uber, Kaali Peeli (Black-Yellow cabs)", "Traffic: Extremely high"],
+                governmentServices: ["Police Station: Local police station (1km)", "Post Office: GPO (2.5km)", "Municipal Office: BMC Ward Office (3km)", "Garbage Collection: Daily"],
+                generalServices: ["Local Markets: Colaba Causeway, Linking Road (shopping districts)", "Dry Cleaners: Widely available", "Repair Shops: Common", "Community Centers: Many cultural centers"]
+            },
+            "Delhi": {
+                crimeRatio: "High (60/100,000 residents)",
+                rapeRatio: "High (12/100,000 residents)",
+                networkAvailability: "Good (5G, Fiber Optic)",
+                livingCost: "Moderate (Avg. $500-$900/month for 1BHK)",
+                facilities: ["Hospitals: AIIMS, Max Healthcare (within 5km)", "Schools: DPS, Modern School (within 8km)", "Shopping Malls: Select Citywalk, Ambience Mall (within 4km)", "Parks: Lodhi Garden, Garden of Five Senses (within 6km)"],
+                transportation: ["Metro: Extensive Delhi Metro network", "Buses: DTC buses", "Cabs: Ola, Uber, Auto-rickshaws", "Traffic: Very high, pollution concerns"],
+                governmentServices: ["Police Station: Local station (1km)", "Post Office: GPO (3km)", "Municipal Office: MCD Office (4km)", "Garbage Collection: Daily"],
+                generalServices: ["Local Markets: Sarojini Nagar, Karol Bagh (shopping hubs)", "Dry Cleaners: Easily found", "Repair Shops: Numerous", "Community Centers: Many cultural and recreational centers"]
+            }
+        };
+
+        // Function to display location details
+        function displayLocationDetails(data) {
+            if (!data) {
+                locationDetailsContainer.innerHTML = ''; // Clear content if no data
+                return;
+            }
+
+            let html = `
+                <div class="bg-white p-6 rounded-xl shadow-lg mt-8 border border-gray-200">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Location Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">Safety & Crime</h4>
+                            <p><strong class="font-semibold">Crime Ratio:</strong> ${data.crimeRatio}</p>
+                            <p><strong class="font-semibold">Rape Ratio:</strong> ${data.rapeRatio}</p>
+                        </div>
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">Network & Connectivity</h4>
+                            <p><strong class="font-semibold">Network Availability:</strong> ${data.networkAvailability}</p>
+                        </div>
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">Living Cost</h4>
+                            <p><strong class="font-semibold">Estimated Monthly Cost:</strong> ${data.livingCost}</p>
+                        </div>
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">Facilities Available</h4>
+                            <ul class="list-disc list-inside ml-4">
+                                ${data.facilities.map(item => <li>${item}</li>).join('')}
+                            </ul>
+                        </div>
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">Transportation</h4>
+                            <ul class="list-disc list-inside ml-4">
+                                ${data.transportation.map(item => <li>${item}</li>).join('')}
+                            </ul>
+                        </div>
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">Government Services</h4>
+                            <ul class="list-disc list-inside ml-4">
+                                ${data.governmentServices.map(item => <li>${item}</li>).join('')}
+                            </ul>
+                        </div>
+                        <div class="info-card">
+                            <h4 class="text-xl font-medium text-purple-700 mb-2">General Services</h4>
+                            <ul class="list-disc list-inside ml-4">
+                                ${data.generalServices.map(item => <li>${item}</li>).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            locationDetailsContainer.innerHTML = html;
+        }
+
+        // Function to handle search logic
+        async function handleSearch() {
+            const location = locationInput.value.trim();
+            messageDisplay.textContent = ''; // Clear previous message
+            locationDetailsContainer.innerHTML = ''; // Clear previous data
+            searchButton.disabled = true; // Disable button during search
+
+            // Add loading spinner and text
+            searchButton.innerHTML = `
+                <span class="flex items-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Searching...
+                </span>
+            `;
+
+            if (location) {
+                // Simulate an API call with a delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                const formattedLocation = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
+
+                if (mockData[formattedLocation]) {
+                    displayLocationDetails(mockData[formattedLocation]);
+                    messageDisplay.textContent = Information for ${formattedLocation}:;
+                    messageDisplay.classList.remove('text-red-600');
+                    messageDisplay.classList.add('text-green-600');
+                } else {
+                    messageDisplay.textContent = "Sorry, no detailed information found for this location. Try Hyderabad, Bangalore, Mumbai, or Delhi.";
+                    messageDisplay.classList.remove('text-green-600');
+                    messageDisplay.classList.add('text-red-600');
+                }
+            } else {
+                messageDisplay.textContent = "Please enter a location to search.";
+                messageDisplay.classList.remove('text-green-600');
+                messageDisplay.classList.add('text-red-600');
+            }
+
+            searchButton.disabled = false; // Re-enable button
+            searchButton.innerHTML = "Search Location"; // Reset button text
+        }
+
+        // Event listeners
+        searchButton.addEventListener('click', handleSearch);
+        locationInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+</body>
+</html>

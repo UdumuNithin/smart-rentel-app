@@ -1,0 +1,13 @@
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.text-gray-800 {
+  color: #1f2937;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,33 @@
+<div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 font-sans p-4 sm:p-8">
+  <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-10 border border-gray-200">
+    <h1 className="text-4xl font-bold text-center text-purple-800 mb-6">
+      <i className="fas fa-home mr-2"></i>Smart Rental Finder
+    </h1>
+    <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+      Find your ideal rental home with detailed insights into safety, living costs, and local amenities.
+    </p>
+
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+      <input type="text" ... />
+      <button ...>{isLoading ? "Searching..." : "Search Location"}</button>
+    </div>
+
+    {message && <p className={`text-center text-lg ${locationData ? 'text-green-600' : 'text-red-600'} mb-8`}>{message}</p>}
+
+    {locationData && <InfoDisplay data={locationData} />}
+
+    <h2 className="text-3xl font-bold text-center text-gray-800 mt-12 mb-8">Explore Key Aspects...</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* 4 cards */}
+    </div>
+
+    <h2 className="text-3xl font-bold text-center text-gray-800 mt-12 mb-8">Quick Insights</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* 2 gray cards */}
+    </div>
+
+    <div className="mt-12 text-center text-gray-500 text-sm">
+      More features coming soon...
+    </div>
+  </div>
+</div>
