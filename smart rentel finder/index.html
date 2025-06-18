@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Train Seat Availability</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Train Seat Availability Checker</h1>
+
+    <div class="section">
+      <h2 class="section-heading">Search by Train Name or Number</h2>
+      <input type="text" id="trainSearch" placeholder="Enter train name or number" />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div class="section">
+      <h2 class="section-heading">Direct Search by Train No & Class</h2>
+      <input type="text" id="directTrainNo" placeholder="Enter train number" />
+      <input type="text" id="directClass" placeholder="Enter class (e.g., SL, 3A)" />
+      <button id="directSearchBtn">Search Directly</button>
+    </div>
+
+    <div id="results" class="section"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
